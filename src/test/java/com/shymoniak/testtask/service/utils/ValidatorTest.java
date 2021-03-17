@@ -1,6 +1,6 @@
 package com.shymoniak.testtask.service.utils;
 
-import com.shymoniak.testtask.constants.ApplicationConstants;
+import com.shymoniak.testtask.constant.ApplicationConstants;
 import org.junit.Test;
 
 import java.io.File;

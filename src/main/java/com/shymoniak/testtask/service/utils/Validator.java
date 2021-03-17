@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.shymoniak.testtask.constants.ApplicationConstants.*;
+import static com.shymoniak.testtask.constant.ApplicationConstants.*;
 
 public class Validator {
     public boolean isValidEmployee(Employee employee) {

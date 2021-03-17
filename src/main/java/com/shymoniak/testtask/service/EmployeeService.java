@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface EmployeeService {
-    void addEmployee (EmployeeDTO employee) throws IOException;
+    void addEmployee(EmployeeDTO employee) throws IOException;
+
     List<EmployeeDTO> getAllEmployees() throws IOException;
-    Map<String,List<EmployeeDTO>> getAllDepartmentsWithEmployeesSortedBySalary();
+
+    Map<String, List<EmployeeDTO>> getAllDepartmentsWithEmployeesSortedBySalary();
+
     EmployeeDTO getMostPaidInDepartment(String department);
 }
