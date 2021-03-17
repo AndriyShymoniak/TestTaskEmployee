@@ -1,7 +1,9 @@
 package com.shymoniak.testtask.service.impl;
 
+import com.shymoniak.testtask.exception.ApiRequestException;
 import com.shymoniak.testtask.service.FileService;
-import com.shymoniak.testtask.service.utils.Validator;
+import com.shymoniak.testtask.utils.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,18 +14,21 @@ import static com.shymoniak.testtask.constant.ApplicationConstants.*;
 
 @Service
 public class FileServiceImpl implements FileService {
-    Validator validator = new Validator();
+    @Autowired
+    private Validator validator;
 
     @Override
     public void uploadFile(MultipartFile multipartFile) {
         try {
             multipartFile.transferTo(new File(RESOURCES_PATH + multipartFile.getOriginalFilename()));
-            File file = new File(RESOURCES_PATH + multipartFile.getOriginalFilename());
-            if(!isValidFile(file.getName())){
+            File file =
+                    new File(RESOURCES_PATH + multipartFile.getOriginalFilename());
+            if (!isValidFile(file.getName())) {
                 file.delete();
+                throw new ApiRequestException("Invalid file.");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ApiRequestException(FILE_PROBLEMS_MESSAGE, e);
         }
     }
 

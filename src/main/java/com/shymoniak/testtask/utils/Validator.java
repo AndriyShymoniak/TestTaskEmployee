@@ -1,6 +1,7 @@
-package com.shymoniak.testtask.service.utils;
+package com.shymoniak.testtask.utils;
 
 import com.shymoniak.testtask.entity.Employee;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,13 +13,12 @@ import java.util.stream.Collectors;
 
 import static com.shymoniak.testtask.constant.ApplicationConstants.*;
 
+@Component
 public class Validator {
-    public boolean isValidEmployee(Employee employee) {
-        return !employee.getFullName().equals("")
-                && employee.getFullName() != null
-                && !employee.getDepartment().equals("")
-                && employee.getDepartment() != null
-                && employee.getSalary() >= 0;
+    public boolean isInvalidEmployee(Employee em) {
+        return (em.getFullName().equals("") || em.getFullName() == null)
+                && (em.getDepartment().equals("") || em.getDepartment() == null)
+                && em.getSalary() < 0;
     }
 
     public boolean isValidCSVFile(File file) throws IOException {

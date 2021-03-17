@@ -2,14 +2,13 @@ package com.shymoniak.testtask.service;
 
 import com.shymoniak.testtask.domain.EmployeeDTO;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 public interface EmployeeService {
-    void addEmployee(EmployeeDTO employee) throws IOException;
+    void addEmployee(EmployeeDTO employee);
 
-    List<EmployeeDTO> getAllEmployees() throws IOException;
+    List<EmployeeDTO> getAllEmployees();
 
     Map<String, List<EmployeeDTO>> getAllDepartmentsWithEmployeesSortedBySalary();
 

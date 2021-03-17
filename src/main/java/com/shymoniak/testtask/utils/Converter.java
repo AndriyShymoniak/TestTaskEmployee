@@ -1,7 +1,9 @@
-package com.shymoniak.testtask.service.utils;
+package com.shymoniak.testtask.utils;
 
 import com.shymoniak.testtask.entity.Employee;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Converter {
     public Employee convertStringIntoEmployee(String line) {
         String[] separated = line.replaceAll("\\[", "")

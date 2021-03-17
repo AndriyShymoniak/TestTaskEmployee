@@ -1,4 +1,4 @@
-package com.shymoniak.testtask.service.utils;
+package com.shymoniak.testtask.utils;
 
 import com.shymoniak.testtask.entity.Employee;
 import org.junit.Test;

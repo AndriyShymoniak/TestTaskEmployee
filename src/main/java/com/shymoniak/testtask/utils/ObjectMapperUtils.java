@@ -1,4 +1,4 @@
-package com.shymoniak.testtask.service.utils;
+package com.shymoniak.testtask.utils;
 
 import java.util.Collection;
 import java.util.List;

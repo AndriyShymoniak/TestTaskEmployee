@@ -1,6 +1,10 @@
-package com.shymoniak.testtask.service.utils;
+package com.shymoniak.testtask.serializer;
 
 import com.shymoniak.testtask.entity.Employee;
+import com.shymoniak.testtask.exception.ApiRequestException;
+import com.shymoniak.testtask.utils.Converter;
+import com.shymoniak.testtask.utils.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedWriter;
@@ -17,8 +21,11 @@ import static com.shymoniak.testtask.constant.ApplicationConstants.*;
 @Component
 public class CsvSerializer {
 
-    private Converter converter = new Converter();
-    Validator validator = new Validator();
+    @Autowired
+    private Converter converter;
+
+    @Autowired
+    private Validator validator;
 
     public List<Employee> getAll() throws IOException {
         return Files.lines(Path.of(CSV_FILE_PATH))
@@ -27,16 +34,14 @@ public class CsvSerializer {
                 .collect(Collectors.toList());
     }
 
-    public void addEmployee(Employee employee) throws NoSuchFileException {
-        if (validator.isValidEmployee(employee)){
-            try (FileWriter fileWriter = new FileWriter(CSV_FILE_PATH, true);
-                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-                bufferedWriter.write(converter.convertEmployeeIntoString(employee));
-            } catch (IOException ex){
-                throw new NoSuchFileException("No file found");
-            }
-        } else {
-         throw new IllegalArgumentException("Employee is not valid");
+    public void addEmployee(Employee employee) throws IOException {
+        if (!validator.isInvalidEmployee(employee)) {
+            throw new ApiRequestException("Employee is not valid");
+        }
+        try (FileWriter fileWriter = new FileWriter(CSV_FILE_PATH, true);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            bufferedWriter.write(converter.convertEmployeeIntoString(employee));
+            bufferedWriter.newLine();
         }
     }
 
