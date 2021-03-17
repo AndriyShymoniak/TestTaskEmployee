@@ -8,33 +8,43 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.shymoniak.testtask.constants.ApplicationConstants.*;
 
 @Component
 public class CsvSerializer {
 
-    public static final String CSV_FILE_PATH =
-            System.getProperty("user.dir") + "\\src\\main\\resources\\data.csv";
-
     private Converter converter = new Converter();
 
     public List<Employee> getAll() throws IOException {
-        List<Employee> lines = Files.lines(Path.of(CSV_FILE_PATH))
+        return Files.lines(Path.of(CSV_FILE_PATH))
                 .skip(1)
-                .map(e -> converter.convertFromString(e))
+                .map(e -> converter.convertStringIntoEmployee(e))
                 .collect(Collectors.toList());
-        return lines;
     }
 
-    public void addEmployee(Employee employee) {
+    public void addEmployee(Employee employee) throws IOException {
         try (
                 FileWriter fileWriter = new FileWriter(CSV_FILE_PATH, true);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)
         ) {
-            bufferedWriter.write(converter.convertIntoString(employee));
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            bufferedWriter.write(converter.convertEmployeeIntoString(employee));
         }
+    }
+
+    public Employee getMostPaidPerDepartment(String department) throws IOException {
+        return getAll().stream()
+                .filter(e -> e.getDepartment().equals(department))
+                .sorted(Comparator.comparing(Employee::getSalary).reversed())
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    public Map<String, List<Employee>> getAllGroupedByDepartmentWithSalarySortedDesc() throws IOException {
+        return getAll().stream()
+                .sorted(Comparator.comparing(Employee::getSalary).reversed())
+                .collect(Collectors.groupingBy(Employee::getDepartment));
     }
 }

@@ -3,7 +3,7 @@ package com.shymoniak.testtask.service.utils;
 import com.shymoniak.testtask.entity.Employee;
 
 public class Converter {
-    public Employee convertFromString(String line) {
+    public Employee convertStringIntoEmployee(String line) {
         String[] separated = line.replaceAll("\\[", "")
                 .replaceAll("\\]", "")
                 .split(";");
@@ -11,7 +11,7 @@ public class Converter {
                 Integer.parseInt(separated[2]));
     }
 
-    public String convertIntoString(Employee employee) {
+    public String convertEmployeeIntoString(Employee employee) {
         return employee.getFullName() + ";" + employee.getDepartment() + ";" +
                 employee.getSalary();
     }

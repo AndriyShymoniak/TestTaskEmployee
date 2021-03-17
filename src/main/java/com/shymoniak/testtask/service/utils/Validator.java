@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.shymoniak.testtask.constants.ApplicationConstants.*;
+
 public class Validator {
     public boolean isValidEmployee(Employee employee) {
         return !employee.getFullName().equals("")
@@ -28,7 +30,7 @@ public class Validator {
 
     private boolean hasEmptyFields(File file) throws IOException {
         List<String[]> list = Files.lines(Path.of(file.getPath()))
-                .map(e -> e.split(";"))
+                .map(e -> e.split(DELIMITER))
                 .collect(Collectors.toList());
         for (String[] arr : list) {
             for (int i = 0; i < arr.length; i++) {
@@ -50,6 +52,8 @@ public class Validator {
     }
 
     private int columnCounter(String str) {
-        return (int) str.chars().filter(c -> c == (int) ';').count();
+        return (int) str.chars()
+                .filter(c -> c == (int) DELIMITER.charAt(0))
+                .count();
     }
 }

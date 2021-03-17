@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -37,26 +38,23 @@ public class CsvSerializerTest {
     }
 
     @Test
-    public void getAll() {
-        try {
-            List<Employee> employees = serializer.getAll();
-            employees.stream().forEach(System.out::println);
-            assertEquals(employees, expectedList);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    public void getAll() throws IOException {
+        List<Employee> employees = serializer.getAll();
+        employees.stream().forEach(System.out::println);
+        assertEquals(employees, expectedList);
     }
 
     @Test
-    public void writeIntoFile() {
-        try {
-            Employee employee = new Employee("John Doe", "IT", 99);
-            serializer.addEmployee(employee);
-            expectedList.add(employee);
-            assertEquals(serializer.getAll(), expectedList);
-        } catch (IOException ex){
-            ex.printStackTrace();
-        }
+    public void writeIntoFile() throws IOException {
+        Employee employee = new Employee("John Doe", "IT", 99);
+        serializer.addEmployee(employee);
+        expectedList.add(employee);
+        assertEquals(serializer.getAll(), expectedList);
+    }
 
+    @Test
+    public void getMostPaidPerDepartment() throws IOException {
+        Employee employee = serializer.getMostPaidPerDepartment("IT");
+        assertEquals(employee, new Employee("Nabilah Naylor", "IT", 150));
     }
 }

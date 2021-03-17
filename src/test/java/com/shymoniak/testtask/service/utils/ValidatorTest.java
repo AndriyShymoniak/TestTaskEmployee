@@ -1,5 +1,6 @@
 package com.shymoniak.testtask.service.utils;
 
+import com.shymoniak.testtask.constants.ApplicationConstants;
 import org.junit.Test;
 
 import java.io.File;
@@ -12,6 +13,6 @@ public class ValidatorTest {
     @Test
     public void isValidCSVFile() throws IOException {
         Validator validator = new Validator();
-        assertTrue(validator.isValidCSVFile(new File(CsvSerializer.CSV_FILE_PATH)));
+        assertTrue(validator.isValidCSVFile(new File(ApplicationConstants.CSV_FILE_PATH)));
     }
 }
