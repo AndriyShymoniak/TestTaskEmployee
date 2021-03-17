@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "8531401e-f5e6-4bf7-baa2-6fa32b087cfb",
+		"name": "Employee collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/employee/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all departments where each department contains employees sorted by salary descending.",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/employee/getDepartmentsWithSortedSalary/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"getDepartmentsWithSortedSalary",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get employees with the highest salary per department. The endpoint must accept the department as an input parameter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/employee/getWithHighestSalaryInDepartment/Sales",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						"getWithHighestSalaryInDepartment",
+						"Sales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload and validate file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Andriy/Downloads/data1.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/file/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"file",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add employee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fullName\": \"Vasyl Kit\",\r\n    \"department\": \"Marketing\",\r\n    \"salary\": 111\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/employee/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
